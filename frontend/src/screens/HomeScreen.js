@@ -19,3 +19,5 @@ const HomeScreen = () => {
 }
 
 export default HomeScreen
+
+// HS is the parent of Product Component. In the HS all the products are displayed as per the Product comp layout
