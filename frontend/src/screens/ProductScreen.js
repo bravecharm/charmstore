@@ -70,9 +70,9 @@ const ProductScreen = ({ match }) => {
                 </Row>
               </ListGroup.Item>
 
-              <ListGroup.Item>
+              <ListGroup.Item className='d-grid gap-2'>
                 <Button
-                  className='w-100'
+                  // className='w-100'
                   type='button'
                   disabled={product.countInStock === 0}
                 >
