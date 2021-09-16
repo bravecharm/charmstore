@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import connectDB from './config/db.js'
 
 import productRoutes from './routes/productRoutes.js'
@@ -18,6 +19,11 @@ app.get('/', (req, res) => {
 
 // for any request for api/products, will be redirected to productRoutes
 app.use('/api/products', productRoutes)
+
+// to handle fallback errors 404. if you go anything that is not an actual route.
+app.use(notFound)
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5000
 
