@@ -14,6 +14,6 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-// We need to wrap our App with the Provider that takes in the store.
+// We need to wrap or cover our App with the Provider that takes in the store.
 
 reportWebVitals()

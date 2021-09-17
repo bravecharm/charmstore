@@ -79,6 +79,7 @@ const ProductScreen = ({ match }) => {
                 <Button
                   // className='w-100'
                   type='button'
+                  className='btn btn-success'
                   disabled={product.countInStock === 0}
                 >
                   Add To Cart
