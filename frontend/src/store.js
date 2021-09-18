@@ -1,9 +1,15 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux' // we applyMiddleware to use thunk
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension' // to use redux dev tools
-import { productListReducer } from './reducers/productReducers'
+import {
+  productListReducer,
+  productDetailsReducer,
+} from './reducers/productReducers'
 
-const reducer = combineReducers({ productList: productListReducer }) // we pass an empty object since we dont have any reducer yet
+const reducer = combineReducers({
+  productList: productListReducer,
+  productDetails: productDetailsReducer,
+}) // we pass an empty object since we dont have any reducer yet
 
 // the 'productList' will show as a part or piece of state
 
