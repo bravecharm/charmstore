@@ -5,15 +5,22 @@ import {
   productListReducer,
   productDetailsReducer,
 } from './reducers/productReducers'
+import { cartReducer } from './reducers/cartReducers'
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
-}) // we pass an empty object since we dont have any reducer yet
-
+  cart: cartReducer,
+})
 // the 'productList' will show as a part or piece of state
+// we want to fetch the saved items from localStorage
+const cartItemsFromStorage = localStorage.getItem('cartItems')
+  ? JSON.parse(localStorage.getItem('cartItems'))
+  : []
 
-const initialState = {} // if we want something to be loaded when redux store loads initially we can put it here as initialState
+const initialState = {
+  cart: { cartItems: cartItemsFromStorage },
+} // if we want something to be loaded when redux store loads initially we can put it here as initialState
 
 const middleware = [thunk]
 
