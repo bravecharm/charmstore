@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { CART_ADD_ITEM } from '../constants/cartConstants'
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants'
 
 // we will have our entire cart to localStorage.
 // getState allows us to get the entire state tree.
@@ -26,3 +26,12 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
 
 // we save it to local storage but where do we get it to fill a state? We do that in our store in initialState.
 // initialState is where we can get our cart items, then we'll have our token and user in initial state later on.
+
+export const removeFromCart = (id) => (dispatch, getState) => {
+  dispatch({
+    type: CART_REMOVE_ITEM,
+    payload: id,
+  })
+
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+}

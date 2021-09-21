@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux' // you import this when you're dealing with a redux state within a component
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap'
 import Message from '../components/Message'
-import { addToCart } from '../actions/cartActions'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id
@@ -25,8 +25,9 @@ const CartScreen = ({ match, location, history }) => {
     }
   }, [dispatch, productId, qty])
 
-  const removeFromCartHandler = () => {
-    console.log('remove')
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id))
+    history.push('/cart') // from FAQ. to redirect to the cart when you delete a product.
   }
 
   const checkoutHandler = () => {
@@ -100,10 +101,10 @@ const CartScreen = ({ match, location, history }) => {
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
                 .toFixed(2)}
             </ListGroup.Item>
-            <ListGroup.Item>
+            <ListGroup.Item className='d-grid gap-2'>
               <Button
+                className='btn btn-success'
                 type='button'
-                className='d-grid gap-2'
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
               >
