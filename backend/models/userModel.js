@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import bcrypt from 'bcryptjs' // to check if the plaintxt password is the same with the hash password from db.
 
 const userSchema = mongoose.Schema(
   {
@@ -11,6 +12,10 @@ const userSchema = mongoose.Schema(
     timestamps: true, // we can always pass timestamps as the 2nd argument of the mongoose.Schema
   }
 )
+
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password)
+}
 
 const User = mongoose.model('User', userSchema)
 
