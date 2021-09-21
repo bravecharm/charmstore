@@ -4,6 +4,7 @@ import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants'
 // we will have our entire cart to localStorage.
 // getState allows us to get the entire state tree.
 // so anything we want from the state even its in the other reducer/store like (productList...) we can grab that with getState.)
+// We use getState to save the entire cart. This will give us a JSON object so we use Stringify because we can only save strings in localStorage
 export const addToCart = (id, qty) => async (dispatch, getState) => {
   const { data } = await axios.get(`/api/products/${id}`)
 

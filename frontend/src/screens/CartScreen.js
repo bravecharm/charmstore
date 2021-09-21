@@ -61,11 +61,12 @@ const CartScreen = ({ match, location, history }) => {
                       className='form-select'
                       as='select'
                       value={item.qty}
-                      onChange={(e) =>
+                      onChange={(e) => {
                         dispatch(
                           addToCart(item.product, Number(e.target.value))
                         )
-                      }
+                        history.push('/cart')
+                      }}
                     >
                       {[...Array(item.countInStock).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
