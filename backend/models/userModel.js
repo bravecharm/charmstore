@@ -22,7 +22,7 @@ userSchema.pre('save', async function (next) {
     next()
   }
   // we only want to do this if the password is sent or modified. so we use isModified method from mongoose as a condition
-  const salt = bcrypt.genSalt(10)
+  const salt = await bcrypt.genSalt(10)
   this.password = await bcrypt.hash(this.password, salt)
 })
 
