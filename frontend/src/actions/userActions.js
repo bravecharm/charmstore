@@ -4,6 +4,7 @@ import {
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
+  USER_LOGOUT,
 } from '../constants/userConstants'
 
 // Thunk- allows us to make asynchronous requests in our action creators because we’re going to have to talk to our server from those action creators.
@@ -38,4 +39,9 @@ export const login = (email, password) => async (dispatch) => {
           : error.message,
     })
   }
+}
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem('userInfo')
+  dispatch({ type: USER_LOGOUT })
 }
