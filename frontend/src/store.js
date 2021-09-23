@@ -32,11 +32,18 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
+const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
+  ? JSON.parse(localStorage.getItem('shippingAddress'))
+  : {}
+
 const initialState = {
-  cart: { cartItems: cartItemsFromStorage },
+  cart: {
+    cartItems: cartItemsFromStorage,
+    shippingAddress: shippingAddressFromStorage,
+  },
   userLogin: { userInfo: userInfoFromStorage },
 } // if we want something to be loaded when redux store loads initially we can put it here as initialState
-
+// when our store initializes, if there is something in the localStorage for shippingAddress we  want to add that to the state.
 const middleware = [thunk]
 
 const store = createStore(
