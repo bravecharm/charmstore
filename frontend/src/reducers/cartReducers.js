@@ -5,6 +5,7 @@ import {
 } from '../constants/cartConstants'
 
 export const cartReducer = (
+  // state = { shippingAddress: {} },
   state = { cartItems: [], shippingAddress: {} },
   action
 ) => {

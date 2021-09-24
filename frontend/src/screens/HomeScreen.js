@@ -18,6 +18,7 @@ const HomeScreen = () => {
     dispatch(listProducts())
   }, [dispatch])
 
+  // console.log('homescreen runs')
   return (
     <>
       <h1>Latest Products</h1>
