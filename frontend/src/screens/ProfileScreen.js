@@ -25,6 +25,7 @@ const ProfileScreen = ({ location, history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
 
+  // every time the component loads and the dependency is changed, useEffect will run
   useEffect(() => {
     if (!userInfo) {
       history.push('/login')

@@ -25,6 +25,7 @@ const ProductScreen = ({ history, match }) => {
 
   const { loading, error, product } = productDetails
 
+  // every time the component loads and the dependency is changed, useEffect will run
   useEffect(() => {
     dispatch(listProductDetails(match.params.id))
   }, [dispatch, match])

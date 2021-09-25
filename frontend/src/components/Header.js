@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
 import { logout } from '../actions/userActions'
@@ -9,8 +10,11 @@ const Header = () => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  const history = useHistory()
+
   const logoutHandler = () => {
     dispatch(logout())
+    history.push('/login') // so that when we logout, we'll be redirected to the login page and avoid being stucked in another screen  ie CartScreen
   }
 
   return (

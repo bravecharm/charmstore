@@ -13,12 +13,12 @@ const HomeScreen = () => {
 
   const { products, loading, error } = productList
 
+  // everytime the component loads and the dependency is changed, useEffect will run
   useEffect(() => {
     //since were using dispatch in the dependency, we need to pass it in as the dependency
     dispatch(listProducts())
   }, [dispatch])
 
-  // console.log('homescreen runs')
   return (
     <>
       <h1>Latest Products</h1>

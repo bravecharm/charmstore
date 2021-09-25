@@ -28,6 +28,9 @@ export const login = (email, password) => async (dispatch) => {
       },
     }
 
+    // An action creator is a function that creates and returns an action object.
+    // We typically use these so we don't have to write the action object by hand every time:
+    // data is the action creator
     const { data } = await axios.post(
       '/api/users/login',
       { email, password },

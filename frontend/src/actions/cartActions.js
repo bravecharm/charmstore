@@ -2,6 +2,7 @@ import axios from 'axios'
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
+  CART_SAVE_PAYMENT_METHOD,
   CART_SAVE_SHIPPING_ADDRESS,
 } from '../constants/cartConstants'
 
@@ -30,7 +31,7 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
 }
 
 // we save it to local storage but where do we get it to fill a state? We do that in our store in initialState.
-// initialState is where we can get our cart items, then we'll have our token and user in initial state later on.
+// initialState is where we can get our cart items.
 
 export const removeFromCart = (id) => (dispatch, getState) => {
   dispatch({
@@ -48,4 +49,13 @@ export const saveShippingAddress = (data) => (dispatch) => {
   })
 
   localStorage.setItem('shippingAddress', JSON.stringify(data))
+}
+
+export const savePaymentMethod = (data) => (dispatch) => {
+  dispatch({
+    type: CART_SAVE_PAYMENT_METHOD,
+    payload: data,
+  })
+
+  localStorage.setItem('paymenthMethod', JSON.stringify(data))
 }
