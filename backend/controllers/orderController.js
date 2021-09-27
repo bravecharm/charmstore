@@ -57,4 +57,9 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 })
 
+// We want the order summary screen to show up.
+// First, we need to get the order from the DB.
+// The order id from the url (thru match.params.id), we will use it to make a request to the backend
+// to fetch the order and display it in Order Screen
+
 export { addOrderItems, getOrderById }
