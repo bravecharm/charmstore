@@ -20,7 +20,7 @@ const addOrderItems = asyncHandler(async (req, res) => {
     throw new Error('No order items')
     return
   } else {
-    // instantiate a new Order with variable name 'order'
+    // instantiate a new Order with variable name 'order' before saving
     const order = new Order({
       orderItems,
       user: req.user._id, // we want to attach the login user. Bec this is going to be a protected route so we'll be able to get a token and get the user ID from the token.
