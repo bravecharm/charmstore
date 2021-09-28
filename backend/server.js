@@ -26,6 +26,11 @@ app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
 
+// when we're ready to make a payment, we'll hit this route from the frontend and we'll get this client Id.
+app.get('/api/config/paypal', (req, res) =>
+  res.send(process.env.PAYPAL_CLIENT_ID)
+)
+
 // to handle fallback errors 404. if you go anything that is not an actual route.
 app.use(notFound)
 

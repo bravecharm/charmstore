@@ -68,9 +68,12 @@ const getOrderById = asyncHandler(async (req, res) => {
 const updateOrderToPaid = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id)
 
+  // if there is an order, then set the order to paid, set the paidAt info, set the order paymentResult.
   if (order) {
     order.isPaid = true
     order.paidAt = Date.now()
+
+    // all of the paymentResult info will be coming from PayPal
     order.paymentResult = {
       id: req.body.id,
       status: req.body.status,
@@ -78,6 +81,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
       email_address: req.body.payer.email_address,
     }
 
+    // after updating the order, save it.
     const updatedOrder = await order.save()
 
     res.json(updatedOrder)
