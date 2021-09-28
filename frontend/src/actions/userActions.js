@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { ORDER_LIST_MY_RESET } from '../constants/orderConstants' // l65 to fix the bug na nakikita parin ng bagong logged in user yung profile and orders ng previous logged in user.
+
 import {
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
@@ -13,8 +15,8 @@ import {
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
+  USER_DETAILS_RESET, // to fix the bug na nakikita parin ng bagong logged in user yung profile and orders ng previous logged in user.
 } from '../constants/userConstants'
-
 // Thunk- allows us to make asynchronous requests in our action creators because we’re going to have to talk to our server from those action creators.
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -57,6 +59,9 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo')
   dispatch({ type: USER_LOGOUT })
+  dispatch({ type: USER_DETAILS_RESET }) // l65 to fix the bug na nakikita parin ng bagong logged in user yung profile and orders ng previous logged in user.
+
+  dispatch({ type: ORDER_LIST_MY_RESET }) //l65 to fix the bug na nakikita parin ng bagong logged in user yung profile and orders ng previous logged in user.
 }
 
 export const register = (name, email, password) => async (dispatch) => {
