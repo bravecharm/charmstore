@@ -14,7 +14,7 @@ const Header = () => {
 
   const logoutHandler = () => {
     dispatch(logout())
-    history.push('/login') // so that when we logout, we'll be redirected to the login page and avoid being stucked in another screen  ie CartScreen
+    history.push('/') // so that when we logout, we'll be redirected to the homepage and avoid being stucked in another screen  ie CartScreen
   }
 
   return (
@@ -34,6 +34,19 @@ const Header = () => {
                   <i className='fas fa-shopping-cart'></i> Cart
                 </Nav.Link>
               </LinkContainer>
+              {userInfo && userInfo.isAdmin && (
+                <NavDropdown title='Admin' id='adminmenu'>
+                  <LinkContainer to='/admin/userlist'>
+                    <NavDropdown.Item>Users</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/productlist'>
+                    <NavDropdown.Item>Products</NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to='/admin/orderlist'>
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
+                </NavDropdown>
+              )}
               {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
                   <LinkContainer to='/profile'>

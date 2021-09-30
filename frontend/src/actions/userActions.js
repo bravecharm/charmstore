@@ -16,6 +16,10 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_DETAILS_RESET, // to fix the bug na nakikita parin ng bagong logged in user yung profile and orders ng previous logged in user.
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
+  USER_LIST_RESET,
 } from '../constants/userConstants'
 // Thunk- allows us to make asynchronous requests in our action creators because we’re going to have to talk to our server from those action creators.
 export const login = (email, password) => async (dispatch) => {
@@ -62,6 +66,8 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_DETAILS_RESET }) // l65 to fix the bug na nakikita parin ng bagong logged in user yung profile and orders ng previous logged in user.
 
   dispatch({ type: ORDER_LIST_MY_RESET }) //l65 to fix the bug na nakikita parin ng bagong logged in user yung profile and orders ng previous logged in user.
+  // dispatch({ type: USER_LIST_RESET })
+  // we need this para kapag ng log out na yung admin while nasa user list screen, hindi na sya mag display sa screen. pero cinomment out ko muna since i didnt face that problem naman.
 }
 
 export const register = (name, email, password) => async (dispatch) => {
@@ -175,6 +181,39 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const listUsers = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState() // we destructure this to get the token and pass it to the headers
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/users`, config)
+
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
