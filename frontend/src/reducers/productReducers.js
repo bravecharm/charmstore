@@ -12,6 +12,11 @@ import {
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
   PRODUCT_CREATE_FAIL,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_UPDATE_FAIL,
+  PRODUCT_UPDATE_RESET,
+  PRODUCT_DETAILS_RESET,
 } from '../constants/productConstants'
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -36,11 +41,13 @@ export const productDetailsReducer = (
   // reducer accepts 2 things: state and action
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
-      return { loading: true, product: { reviews: [] } } // we just want to place whatever is in the state so we use spread operator. changed to this so the details request will be reset to avoid bugs in the product image.
+      return { loading: true, ...state } // we just want to place whatever is in the state so we use spread operator. changed to this so the details request will be reset to avoid bugs in the product image.
     case PRODUCT_DETAILS_SUCCESS:
       return { loading: false, product: action.payload } // returns the list of products
     case PRODUCT_DETAILS_FAIL:
       return { loading: false, error: action.payload }
+    case PRODUCT_DETAILS_RESET:
+      return { product: { reviews: [] } } // to fix the bug where after you edit a product, and redirected to the product list, its not being updated.
     default:
       return state
   }
@@ -69,6 +76,21 @@ export const productCreateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case PRODUCT_CREATE_RESET:
       return {}
+    default:
+      return state
+  }
+}
+
+export const productUpdateReducer = (state = { product: {} }, action) => {
+  switch (action.type) {
+    case PRODUCT_UPDATE_REQUEST:
+      return { loading: true }
+    case PRODUCT_UPDATE_SUCCESS:
+      return { loading: false, success: true, product: action.payload }
+    case PRODUCT_UPDATE_FAIL:
+      return { loading: false, error: action.payload }
+    case PRODUCT_UPDATE_RESET:
+      return { product: {} }
     default:
       return state
   }
