@@ -17,6 +17,7 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_RESET,
   PRODUCT_DETAILS_RESET,
+  CLEAR_PRODUCT_DETAILS,
 } from '../constants/productConstants'
 
 export const productListReducer = (state = { products: [] }, action) => {
@@ -41,7 +42,8 @@ export const productDetailsReducer = (
   // reducer accepts 2 things: state and action
   switch (action.type) {
     case PRODUCT_DETAILS_REQUEST:
-      return { loading: true, ...state } // we just want to place whatever is in the state so we use spread operator. changed to this so the details request will be reset to avoid bugs in the product image.
+      // return { loading: true, product: { reviews: [] } }  // we just want to place whatever is in the state so we use spread operator. changed to this so the details request will be reset to avoid bugs in the product image.
+      return { loading: true, ...state } // ibinalik nalang yung sa spread operator as it is creating an issue with the edit screen - infinite loop kapag ng edit
     case PRODUCT_DETAILS_SUCCESS:
       return { loading: false, product: action.payload } // returns the list of products
     case PRODUCT_DETAILS_FAIL:

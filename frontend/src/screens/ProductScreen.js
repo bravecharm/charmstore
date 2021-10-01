@@ -14,7 +14,11 @@ import {
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import { listProductDetails } from '../actions/productActions'
+import {
+  listProductDetails,
+  clearProductDetails,
+} from '../actions/productActions'
+import { PRODUCT_DETAILS_RESET } from '../constants/productConstants'
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1)
@@ -27,6 +31,7 @@ const ProductScreen = ({ history, match }) => {
 
   // every time the component loads and the dependency is changed, useEffect will run
   useEffect(() => {
+    dispatch({ type: PRODUCT_DETAILS_RESET })
     dispatch(listProductDetails(match.params.id))
   }, [dispatch, match])
 
