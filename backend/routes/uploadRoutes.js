@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'uploads/') // return null if theres no error, add where you want the file to be uploaded which is uploads folder.
   },
-  filename(req, res, cb) {
+  filename(req, file, cb) {
     cb(
       null,
       `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 
 function checkFileType(file, cb) {
   const filetypes = /jpg|jpeg|png/
-  const extname = filetypes.test(path.extname) // we are checking the 'filetypes' against the extension of the file name we passed in
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase()) // we are checking the 'filetypes' against the extension of the file name we passed in
   const mimetype = filetypes.test(file.mimetype) // every file has one ie image/jpeg
   // extname variable - gives us a boolean true or false if the set ext and file ext matches or not
   // path.extname - gets the extension of a file
