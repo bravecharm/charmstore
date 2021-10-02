@@ -15,7 +15,6 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
-  CLEAR_PRODUCT_DETAILS,
 } from '../constants/productConstants'
 
 // thunk made this possible. it allows asynchronous request in action creators.

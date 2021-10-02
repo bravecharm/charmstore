@@ -17,7 +17,6 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_RESET,
   PRODUCT_DETAILS_RESET,
-  CLEAR_PRODUCT_DETAILS,
 } from '../constants/productConstants'
 
 export const productListReducer = (state = { products: [] }, action) => {

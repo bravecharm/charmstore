@@ -14,10 +14,7 @@ import {
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import {
-  listProductDetails,
-  clearProductDetails,
-} from '../actions/productActions'
+import { listProductDetails } from '../actions/productActions'
 import { PRODUCT_DETAILS_RESET } from '../constants/productConstants'
 
 const ProductScreen = ({ history, match }) => {
