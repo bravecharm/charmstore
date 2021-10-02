@@ -44,7 +44,7 @@ const ProfileScreen = ({ location, history }) => {
       } else {
         setName(user.name)
         setEmail(user.email)
-        console.log(user.name)
+        // console.log(user.name)
       }
     }
   }, [dispatch, history, userInfo, user, success])

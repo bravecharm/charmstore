@@ -18,11 +18,11 @@ const protect = asyncHandler(async (req, res, next) => {
       // this req.user will now have the access to all the protected routes.
       req.user = await User.findById(decoded.id).select('-password') // we use select so we ensure that the password will not be sent
 
-      console.log(decoded)
-      console.log(req.user) // you have access to id, name, email, isAdmin.
+      // console.log(decoded)
+      // console.log(req.user) // you have access to id, name, email, isAdmin.
       next()
     } catch (error) {
-      console.error(error)
+      // console.error(error)
       res.status(401)
       throw new Error('Not authorized, token failed')
     }
