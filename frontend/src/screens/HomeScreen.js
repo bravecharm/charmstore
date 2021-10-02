@@ -4,22 +4,25 @@ import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import Paginate from '../components/Paginate'
 import { listProducts } from '../actions/productActions'
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword
 
+  const pageNumber = match.params.pageNumber || 1
+
   const dispatch = useDispatch()
 
   const productList = useSelector((state) => state.productList)
 
-  const { products, loading, error } = productList
+  const { loading, error, products, page, pages } = productList
 
   // everytime the component loads and the dependency is changed, useEffect will run
   useEffect(() => {
     //since were using dispatch in the dependency, we need to pass it in as the dependency
-    dispatch(listProducts(keyword)) // we pass in keyword in listProducts bec thats the action that calls the products from the backend
-  }, [dispatch, keyword])
+    dispatch(listProducts(keyword, pageNumber)) // we pass in keyword in listProducts bec thats the action that calls the products from the backend
+  }, [dispatch, keyword, pageNumber])
 
   return (
     <>
@@ -29,20 +32,27 @@ const HomeScreen = ({ match }) => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <Row>
-          {products.map((product) => (
-            <Col
-              // className='align-items-stretch d-flex'
-              key={product._id}
-              sm={12}
-              md={6}
-              lg={4}
-              xl={3}
-            >
-              <Product product={product} />
-            </Col>
-          ))}
-        </Row>
+        <>
+          <Row>
+            {products.map((product) => (
+              <Col
+                // className='align-items-stretch d-flex'
+                key={product._id}
+                sm={12}
+                md={6}
+                lg={4}
+                xl={3}
+              >
+                <Product product={product} />
+              </Col>
+            ))}
+          </Row>
+          <Paginate
+            pages={pages}
+            page={page}
+            keyword={keyword ? keyword : ''}
+          />
+        </>
       )}
     </>
   )

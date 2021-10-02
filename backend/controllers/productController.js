@@ -5,6 +5,9 @@ import Product from '../models/productModel.js'
 // @route GET /api/products
 // @access Public
 const getProducts = asyncHandler(async (req, res) => {
+  const pageSize = 4
+  const page = Number(req.query.pageNumber) || 1
+
   const keyword = req.query.keyword
     ? {
         name: {
@@ -14,9 +17,13 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {}
 
-  const products = await Product.find({ ...keyword }) // either this will be empty and get all the products or match the product with the keyword if there is any
+  const count = await Product.countDocuments({ ...keyword }) // to get the total count of products
 
-  res.json(products)
+  const products = await Product.find({ ...keyword }) // either this will be empty and get all the products or match the product with the keyword if there is any
+    .limit(pageSize)
+    .skip(pageSize * (page - 1))
+  // we use skip to determine which products within a page you are going to render based from the pageSize. In page 1 ofcourse we can get the accurate products but what if we are on page2
+  res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
 // @description Fetch single product

@@ -22,16 +22,17 @@ import {
 
 // thunk made this possible. it allows asynchronous request in action creators.
 //we pass in dispatch to dispatch the actions
+// we set the keyword as an empty string as its default value
 export const listProducts =
-  (
-    keyword = '' // we set the keyword as an empty string as its default value
-  ) =>
+  (keyword = '', pageNumber = '') =>
   async (dispatch) => {
     // and to add a function within a function.
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST })
       // keyword might be an empty string or an actual keyword
-      const { data } = await axios.get(`/api/products?keyword=${keyword}`) // we use axios so the frontend can make http requests from the backend
+      const { data } = await axios.get(
+        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+      ) // we use axios so the frontend can make http requests from the backend
       dispatch({
         type: PRODUCT_LIST_SUCCESS,
         payload: data,
