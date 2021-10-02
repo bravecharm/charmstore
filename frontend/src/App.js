@@ -39,6 +39,7 @@ const App = () => {
           <Route path='/admin/productlist' component={ProductListScreen} />
           <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
           <Route path='/admin/orderlist' component={OrderListScreen} />
+          <Route path='/search/:keyword' component={HomeScreen} />
           <Route exact path='/' component={HomeScreen} />
           {/* we put '?' to make the id optional. because when we just go to the cart link its not gonna have any id in it */}
         </Container>
