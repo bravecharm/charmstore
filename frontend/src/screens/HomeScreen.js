@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Paginate from '../components/Paginate'
+import ProductCarousel from '../components/ProductCarousel'
 import { listProducts } from '../actions/productActions'
 
 const HomeScreen = ({ match }) => {
@@ -18,7 +20,7 @@ const HomeScreen = ({ match }) => {
 
   const { loading, error, products, page, pages } = productList
 
-  // everytime the component loads and the dependency is changed, useEffect will run
+  // every time the component loads and the dependency is changed, useEffect will run
   useEffect(() => {
     //since were using dispatch in the dependency, we need to pass it in as the dependency
     dispatch(listProducts(keyword, pageNumber)) // we pass in keyword in listProducts bec thats the action that calls the products from the backend
@@ -26,6 +28,13 @@ const HomeScreen = ({ match }) => {
 
   return (
     <>
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to='/' className='btn btn-light'>
+          Go Back
+        </Link>
+      )}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
