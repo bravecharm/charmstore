@@ -24,10 +24,6 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json()) // allows to accept JSON data in the body.
 
-app.get('/', (req, res) => {
-  res.send('Api is running...')
-})
-
 // for any request for api/products, will be redirected to productRoutes
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
@@ -43,6 +39,18 @@ const __dirname = path.resolve()
 // we need to make the uploads folder static so that it can get loaded in the browser as it is not accessible by default
 // this code takes us to the uploads folder and making it static with express.
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  ) // this * will get anything other that our api routes. if we are in production, we will get any route that's not our API.
+} else {
+  app.get('/', (req, res) => {
+    res.send('Api is running...')
+  })
+}
 
 // to handle fallback errors 404. if you go anything that is not an actual route.
 app.use(notFound)
