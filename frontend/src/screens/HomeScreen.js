@@ -6,7 +6,9 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listProducts } from '../actions/productActions'
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+  const keyword = match.params.keyword
+
   const dispatch = useDispatch()
 
   const productList = useSelector((state) => state.productList)
@@ -16,8 +18,8 @@ const HomeScreen = () => {
   // everytime the component loads and the dependency is changed, useEffect will run
   useEffect(() => {
     //since were using dispatch in the dependency, we need to pass it in as the dependency
-    dispatch(listProducts())
-  }, [dispatch])
+    dispatch(listProducts(keyword)) // we pass in keyword in listProducts bec thats the action that calls the products from the backend
+  }, [dispatch, keyword])
 
   return (
     <>
